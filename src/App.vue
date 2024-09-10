@@ -1,4 +1,5 @@
 <script setup>
+  import "./assets/scss/app.scss";
 </script>
 
 <template>
