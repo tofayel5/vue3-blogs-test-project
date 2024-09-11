@@ -1,8 +1,9 @@
 import { createStore } from "vuex"
+import app from './modules/app'
+import auth from './modules/auth'
 export default new createStore({
-    state: {},
-    mutations: {},
-    getters: {},
-    actions: {},
-    modules: {},
+    modules: {
+        app,
+        auth
+    }
 });
