@@ -1,8 +1,10 @@
 <script setup>
   import "./assets/scss/app.scss";
+  import Login from "@/views/auth/Registration.vue";
 </script>
 
 <template>
+  <login></login>
   <header>
     <div class="wrapper">
       <button type="button" class="btn btn-primary">Primary</button>
