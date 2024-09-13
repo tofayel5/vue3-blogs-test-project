@@ -11,6 +11,24 @@ const routes = [
     meta: { layout: 'app' },
   },
   {
+    path: '/tags',
+    name: 'tags',
+    component: () => import('@/views/pages/tags/Tags.vue'),
+    meta: { layout: 'app' },
+  },
+  {
+    path: '/posts',
+    name: 'posts',
+    component: () => import('@/views/Dashboard.vue'),
+    meta: { layout: 'app' },
+  },
+  {
+    path: '/new-post',
+    name: 'posts',
+    component: () => import('@/views/Dashboard.vue'),
+    meta: { layout: 'app' },
+  },
+  {
     path: '/login',
     name: 'login',
     component: () => import('@/views/auth/Login.vue'),
@@ -50,17 +68,18 @@ router.beforeEach((to, from, next) => {
   } else {
     store.commit('setLayout', 'app');
   }
-  const hasToken = getToken()
-  console.log('hasToken: ', hasToken)
-  if (hasToken) {
-    if (to.path === '/login') {
-      next({ path: '/' })
-    }
-  } else {
-    /* has no token*/
-    next(`/login?redirect=${to.path}`)
-  }
   next(true);
+  // const hasToken = getToken()
+  // console.log('hasToken: ', hasToken)
+  // if (hasToken) {
+  //   if (to.path === '/login') {
+  //     next({ path: '/' })
+  //   }
+  // } else {
+  //   /* has no token*/
+  //   next(`/login?redirect=${to.path}`)
+  // }
+  // next(true);
 });
 
 export default router

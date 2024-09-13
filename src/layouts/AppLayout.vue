@@ -1,7 +1,7 @@
 <script setup>
 import Header from "@/layouts/components/AppHeader.vue";
-import Sidebar from "@/layouts/components/AppSidebar.vue";
-import Footer from "@/layouts/components/AppFooter.vue";
+// import Sidebar from "@/layouts/components/AppSidebar.vue";
+// import Footer from "@/layouts/components/AppFooter.vue";
 </script>
 
 <template>
@@ -13,7 +13,8 @@ import Footer from "@/layouts/components/AppFooter.vue";
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
       <!--  BEGIN SIDEBAR  -->
-      <Sidebar></Sidebar>
+      <!--  @TODO-->
+<!--      <Sidebar></Sidebar>-->
       <!--  END SIDEBAR  -->
 
       <!--  BEGIN CONTENT AREA  -->
@@ -21,7 +22,8 @@ import Footer from "@/layouts/components/AppFooter.vue";
         <router-view />
 
         <!-- BEGIN FOOTER -->
-        <Footer></Footer>
+        <!--  @TODO-->
+<!--        <Footer></Footer>-->
         <!-- END FOOTER -->
       </div>
       <!--  END CONTENT AREA  -->
