@@ -1,9 +1,9 @@
 // post related API.
 import request from '@/utils/request'
 export default {
-    posts() {
+    posts(page=1) {
         return request({
-            url: `/posts`,
+            url: `/posts?page=${page}`,
             method: 'get'
         })
     },
