@@ -145,7 +145,6 @@ const set_pwd_type = () => {
                       <button type="submit" class="btn btn-primary">Confirm Registration</button>
                     </div>
                   </div>
-
                 </div>
               </form>
             </div>
