@@ -1,16 +1,23 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createMemoryHistory } from 'vue-router'
 import store from '../store'
+import { getToken } from '@/utils/cookie' // get token from cookie
 
 // routes list
 const routes = [
   {
-    path: '/auth/login',
+    path: '/',
+    name: 'dashboard',
+    component: () => import('@/views/Dashboard.vue'),
+    meta: { layout: 'app' },
+  },
+  {
+    path: '/login',
     name: 'login',
     component: () => import('@/views/auth/Login.vue'),
     meta: { layout: 'auth' },
   },
   {
-    path: '/auth/register',
+    path: '/register',
     name: 'register',
     component: () => import('@/views/auth/Registration.vue'),
     meta: { layout: 'auth' },
@@ -24,7 +31,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createMemoryHistory(),
   linkExactActiveClass: 'active',
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -37,10 +44,21 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta && to.meta.layout && to.meta.layout === 'auth') {
-    store.commit('app/setLayout', 'auth');
+  console.log('beforeEach: ', to, from)
+  if (to.meta && to.meta.layout && to.meta.layout == 'auth') {
+    store.commit('setLayout', 'auth');
   } else {
-    store.commit('app/setLayout', 'app');
+    store.commit('setLayout', 'app');
+  }
+  const hasToken = getToken()
+  console.log('hasToken: ', hasToken)
+  if (hasToken) {
+    if (to.path === '/login') {
+      next({ path: '/' })
+    }
+  } else {
+    /* has no token*/
+    next(`/login?redirect=${to.path}`)
   }
   next(true);
 });

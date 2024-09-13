@@ -1,21 +1,32 @@
-<script setup>
-  import "./assets/scss/app.scss";
-  import Login from "@/views/auth/Registration.vue";
-</script>
-
 <template>
-  <login></login>
-  <header>
-    <div class="wrapper">
-      <button type="button" class="btn btn-primary">Primary</button>
-      <button type="button" class="btn btn-secondary">Secondary</button>
-      <button type="button" class="btn btn-success">Success</button>
-      <button type="button" class="btn btn-danger">Danger</button>
-      <button type="button" class="btn btn-warning">Warning</button>
-      <button type="button" class="btn btn-info">Info</button>
-    </div>
-  </header>
+  <div class="main">
+    <component v-bind:is="layout"></component>
+  </div>
 </template>
+<script setup>
+import { computed } from "vue"
+import { useStore } from "vuex"
+import "@/assets/scss/app.scss"
 
-<style scoped>
-</style>
+const store = useStore()
+console.log('store: ', store, store.getters.layout);
+const layout = computed(() => {
+  return store.getters.layout
+});
+console.log('layouts: ', layout);
+</script>
+<script>
+// layouts
+import appLayout from "@/layouts/AppLayout.vue"
+import authLayout from "@/layouts/AuthLayout.vue"
+
+export default {
+  components: {
+    app: appLayout,
+    auth: authLayout
+  },
+  mounted() {
+    console.log('route: ', this.$route)
+  }
+};
+</script>

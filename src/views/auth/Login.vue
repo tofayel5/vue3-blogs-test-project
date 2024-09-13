@@ -2,13 +2,14 @@
   <div class="form auth-boxed">
     <div class="form-container outer">
       <div class="form-form">
+<!--        {{form}}-->
         <div class="form-form-wrap">
           <div class="form-container">
             <div class="form-content">
               <h1 class="">Sign In</h1>
               <form class="text-start">
                 <div class="form">
-
+                  <!-- Email Field -->
                   <div id="username-field" class="field-wrapper input">
                     <label for="email">Email</label>
                     <svg
@@ -26,7 +27,7 @@
                       <circle cx="12" cy="12" r="4"></circle>
                       <path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"></path>
                     </svg>
-                    <input type="text" class="form-control" placeholder="Email" />
+                    <input v-model="form.email" type="text" class="form-control" placeholder="Email" />
                   </div>
                   <!-- Password Field -->
                   <div id="password-field" class="field-wrapper input mb-2">
@@ -49,7 +50,7 @@
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                       <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                     </svg>
-                    <input :type="pwd_type" class="form-control" placeholder="Password" />
+                    <input v-model="form.password" type="password" class="form-control" placeholder="Password" />
                     <svg
                         @click="set_pwd_type"
                         xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +71,7 @@
                   </div>
                   <div class="d-sm-flex justify-content-between">
                     <div class="field-wrapper" style="width: 100%">
-                      <button type="submit" class="btn btn-primary">Log In</button>
+                      <button type="button" @click="login()" class="btn btn-primary">Log In</button>
                     </div>
                   </div>
                   <p class="signup-link">Not registered ? <router-link to="">Create an account</router-link></p>
@@ -85,16 +86,25 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-const pwd_type = ref("password");
+import { reactive } from 'vue'
+import { useStore } from 'vuex'
+// data binding
+const form = reactive({
+  email: 'osama.moh.almamari@gmail.com',
+  password: '123456',
+})
 
-const set_pwd_type = () => {
-  if (pwd_type.value === "password") {
-    pwd_type.value = "text";
-  } else {
-    pwd_type.value = "password";
-  }
-};
+const store = useStore()
+function login() {
+  console.log('login: ', form);
+  store.dispatch('login', this.form)
+      .then(() => {
+        this.$router.push({ path: '/'})
+      })
+      .catch(() => {
+        // do something
+      })
+}
 </script>
 <style lang="scss" scoped>
 @import "@/assets/scss/pages/auth.scss";

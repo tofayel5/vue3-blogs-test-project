@@ -1,11 +1,15 @@
 // initial state
 const state = () => ({
-    layout: 'app',
+    layout: 'auth',
     isShowSidebar: false
 })
 
 // getters
-const getters = {}
+const getters = {
+    layout(state) {
+        return state.layout;
+    }
+}
 
 // actions
 const actions = {}
@@ -18,7 +22,6 @@ const mutations = {
 }
 
 export default {
-    namespaced: true,
     state,
     getters,
     actions,
