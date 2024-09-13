@@ -66,6 +66,11 @@ const addTag = (newTag) => {
 
 const tagList = computed(() => store.getters.getTags);
 console.log('tagList: ', tagList)
+function resetItem() {
+  item.value.title = ''
+  item.value.description = ''
+  item.value.tags = []
+}
 function getTangs() {
   store.dispatch('getTags')
 }
@@ -87,6 +92,7 @@ function createPost() {
   console.log('makePayload: ', payload)
   Post.postAdd(payload).then(res => {
     console.log('res: ', res);
+    resetItem()
   })
 }
 function updatePost() {
@@ -97,6 +103,7 @@ function updatePost() {
     console.log('makePayload: ', payload)
     Post.postUpdate(payload, 142).then(res => {
       console.log('res: ', res);
+      resetItem()
     })
   }
 }
