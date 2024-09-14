@@ -25,17 +25,23 @@ import { onMounted, ref, computed } from "vue"
 import { useStore } from 'vuex'
 const store = useStore()
 
-// table columns
+// data section
 const cols = ref([
   { field: 'id', title: 'ID', isUnique: true, width: '1px' },
   { field: 'name', title: 'Name' },
   { field: 'slug', title: 'Slug' }
 ]);
+
+// computed property section
 const tagList = computed(() => store.getters.getTags);
 console.log('tagList: ', tagList)
+
+// hooks section
 onMounted(() => {
   getTangs()
 });
+
+// function section
 function getTangs() {
   store.dispatch('getTags')
 }

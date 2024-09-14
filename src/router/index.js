@@ -1,55 +1,62 @@
-import { createRouter, createMemoryHistory } from 'vue-router'
-import store from '../store'
-import { getToken } from '@/utils/cookie' // get token from cookie
+import { createRouter, createWebHistory } from 'vue-router'
 
 // routes list
 const routes = [
   {
     path: '/',
-    name: 'dashboard',
+    name: 'Dashboard',
     component: () => import('@/views/Dashboard.vue'),
     meta: { layout: 'app' },
   },
+    // Tag related route
   {
     path: '/tags',
-    name: 'tags',
+    name: 'Tags',
     component: () => import('@/views/pages/tags/Tags.vue'),
     meta: { layout: 'app' },
   },
+    // Post related route
   {
     path: '/posts',
-    name: 'posts',
-    component: () => import('@/views/Dashboard.vue'),
+    name: 'Posts',
+    component: () => import('@/views/pages/post/Posts.vue'),
     meta: { layout: 'app' },
   },
   {
     path: '/new-post',
-    name: 'posts',
-    component: () => import('@/views/Dashboard.vue'),
+    name: 'NewPost',
+    component: () => import('@/views/pages/post/PostAction.vue'),
     meta: { layout: 'app' },
   },
   {
+    path: '/edit-post/:id',
+    name: 'EditPost',
+    component: () => import('@/views/pages/post/PostAction.vue'),
+    meta: { layout: 'app' },
+  },
+    // Auth related route
+  {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: () => import('@/views/auth/Login.vue'),
     meta: { layout: 'auth' },
   },
   {
     path: '/register',
-    name: 'register',
+    name: 'Register',
     component: () => import('@/views/auth/Registration.vue'),
     meta: { layout: 'auth' },
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'error404',
+    name: 'Error404',
     component: () => import( '@/views/pages/Error404.vue'),
     meta: { layout: 'auth' },
   }
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
+  history: createWebHistory(),
   linkExactActiveClass: 'active',
   routes,
   scrollBehavior(to, from, savedPosition) {
@@ -60,26 +67,4 @@ const router = createRouter({
     }
   }
 });
-
-router.beforeEach((to, from, next) => {
-  console.log('beforeEach: ', to, from)
-  if (to.meta && to.meta.layout && to.meta.layout == 'auth') {
-    store.commit('setLayout', 'auth');
-  } else {
-    store.commit('setLayout', 'app');
-  }
-  next(true);
-  // const hasToken = getToken()
-  // console.log('hasToken: ', hasToken)
-  // if (hasToken) {
-  //   if (to.path === '/login') {
-  //     next({ path: '/' })
-  //   }
-  // } else {
-  //   /* has no token*/
-  //   next(`/login?redirect=${to.path}`)
-  // }
-  // next(true);
-});
-
 export default router

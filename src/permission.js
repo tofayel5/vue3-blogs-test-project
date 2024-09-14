@@ -1,31 +1,26 @@
 import router from './router'
+import store from './store'
 import { getToken } from '@/utils/cookie' // get token from cookie
 
-
-const whiteList = ['/login']
-
-router.beforeEach(async(to, from, next) => {
-
+// router global guard
+router.beforeEach((to, from, next) => {
+  // layout set
+  const whiteRouteList = ['Login', 'Register']
+  if (to.meta && to.meta.layout && to.meta.layout == 'auth') {
+    store.commit('setLayout', 'auth');
+  } else {
+    store.commit('setLayout', 'app');
+  }
   // determine whether the user has logged in
   const hasToken = getToken()
   console.log('hasToken: ', hasToken)
   console.log('beforeEach: ', to, from)
-  if (hasToken) {
-    if (to.path === '/login') {
-      next({ path: '/' })
-    }
+  if (!whiteRouteList.includes(to.name) && !hasToken) {
+    next({ name: 'Login' })
   } else {
-    /* has no token*/
-    if (whiteList.indexOf(to.path) !== -1) {
-      // in the free login whitelist, go directly
-      next()
-    } else {
-      // other pages that do not have permission to access are redirected to the login page.
-      next(`/login?redirect=${to.path}`)
-    }
+   next()
   }
 })
-
 router.afterEach(() => {
 
 })

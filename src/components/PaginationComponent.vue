@@ -29,6 +29,7 @@
 import {computed} from "vue";
 import { useStore } from 'vuex'
 const store = useStore()
+// data and props section
 const props = defineProps({
   offset: {
     type: Number,
@@ -38,6 +39,7 @@ const props = defineProps({
     type: Object
   },
 })
+// computed property section
 const pages = computed(() => {
   let pages = []
   let from = props.resData.current_page - Math.floor(props.offset / 2)
@@ -54,7 +56,7 @@ const pages = computed(() => {
   }
   return pages
 })
-
+// function section
 function isCurrentPage(page) {
   return props.resData.current_page === page
 }
@@ -64,6 +66,7 @@ function onchangePage(page) {
   store.dispatch('getPosts', page)
 }
 </script>
+
 <style lang="scss" scoped>
 
 </style>

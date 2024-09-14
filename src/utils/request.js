@@ -7,7 +7,7 @@ const service = axios.create({
     // baseURL: process.env.VUE_APP_BASE_API + '/api', // url = base url + request url
     baseURL: 'https://blogs.kingofkey.net/api', // url = base url + request url
     timeout: 0, // request timeout
-    headers: {'Content-Type': 'application/json',}
+    headers: {'Content-Type': 'application/json'}
 })
 
 // request interceptor

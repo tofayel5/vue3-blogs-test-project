@@ -15,14 +15,15 @@ export default defineConfig({
   },
   server: {
     port: 8090,
-    proxy: {
-      // api endpoint
-      '/api': {
-        target: 'https://blogs.kingofkey.net',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    },
+    // for micro service
+    // proxy: {
+    //   // api endpoint
+    //   '/api': {
+    //     target: 'https://blogs.kingofkey.net',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, '')
+    //   }
+    // },
     hmr: {
       overlay: false
     },

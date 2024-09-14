@@ -74,7 +74,7 @@
                       <button type="button" @click="login()" class="btn btn-primary">Log In</button>
                     </div>
                   </div>
-                  <p class="signup-link">Not registered ? <router-link to="">Create an account</router-link></p>
+                  <p class="signup-link">Not registered ? <router-link :to="{ name: 'Register'}">Create an account</router-link></p>
                 </div>
               </form>
             </div>
@@ -88,24 +88,27 @@
 <script setup>
 import { reactive } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+const store = useStore()
+const router = useRouter()
 // data binding
 const form = reactive({
   email: 'osama.moh.almamari@gmail.com',
   password: '123456',
 })
 
-const store = useStore()
+// method section
 function login() {
-  console.log('login: ', form);
   store.dispatch('login', this.form)
       .then(() => {
-        this.$router.push({ path: '/'})
+        router.push({ name: 'Dashboard'})
       })
       .catch(() => {
         // do something
       })
 }
 </script>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/pages/auth.scss";
 </style>

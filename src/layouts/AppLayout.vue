@@ -2,6 +2,8 @@
 import Header from "@/layouts/components/AppHeader.vue";
 // import Sidebar from "@/layouts/components/AppSidebar.vue";
 // import Footer from "@/layouts/components/AppFooter.vue";
+import {useRoute} from "vue-router";
+const route = useRoute()
 </script>
 
 <template>
@@ -19,7 +21,7 @@ import Header from "@/layouts/components/AppHeader.vue";
 
       <!--  BEGIN CONTENT AREA  -->
       <div id="content" class="main-content">
-        <router-view />
+        <router-view :key="route.fullPath" />
 
         <!-- BEGIN FOOTER -->
         <!--  @TODO-->

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row mt-2">
-      {{ item }}
+<!--      {{ item }}-->
       <div class="col-lg-12 col-12">
         <div class="card mb-4">
           <div class="card-header">
@@ -31,9 +31,8 @@
                     @tag="addTag"
                 ></multiselect>
               </div>
-              <button type="button" class="btn btn-primary" @click="createPost()">Submit</button>
-              <button type="button" class="btn btn-primary" @click="updatePost()">Update</button>
-              <button type="button" class="btn btn-primary" @click="deletePost()">Delete</button>
+              <button v-if="!route.params.id" type="button" class="btn btn-primary" @click="createPost()">Submit</button>
+              <button v-if="route.params.id" type="button" class="btn btn-primary" @click="updatePost()">Update</button>
             </form>
           </div>
         </div>
@@ -48,31 +47,41 @@ import "@suadelabs/vue3-multiselect/dist/vue3-multiselect.css";
 import Post from '@/api/Post'
 import { onMounted, ref, computed } from "vue"
 import { useStore } from 'vuex'
+import {useRoute} from "vue-router";
 const store = useStore()
+const route = useRoute()
 
-onMounted(() => {
-  getTangs()
-  getPost(141)
-});
-
+// data section
 const item = ref({
   title: '',
   description: '',
   tags: []
 });
 const addTag = (newTag) => {
-  item.value.tags.push(newTag);
+  item.value.tags.push(newTag)
 };
 
-const tagList = computed(() => store.getters.getTags);
+// computed property section
+const tagList = computed(() => store.getters.getTags)
 console.log('tagList: ', tagList)
+
+// hooks section
+onMounted(() => {
+  init()
+});
+
+// function section
+function init() {
+  resetItem()
+  getTangs()
+  if (route.params && route.params.id) {
+    getPost(route.params.id)
+  }
+}
 function resetItem() {
   item.value.title = ''
   item.value.description = ''
   item.value.tags = []
-}
-function getTangs() {
-  store.dispatch('getTags')
 }
 function makePayload() {
   return{
@@ -81,9 +90,18 @@ function makePayload() {
     tags: item.value.tags.map(item => item.id)
   }
 }
+function getTangs() {
+  store.dispatch('getTags')
+}
 function getPost(id) {
   Post.postInfo(id).then(res => {
     console.log('post: ', res);
+    const resData = res.data
+    if (resData) {
+      item.value.title = resData.title
+      item.value.description = resData.description
+      item.value.tags = resData.tags
+    }
   }).catch(() => {
   })
 }
@@ -96,27 +114,12 @@ function createPost() {
   })
 }
 function updatePost() {
-  if (false) {
-
-  } else {
-    const payload = makePayload()
-    console.log('makePayload: ', payload)
-    Post.postUpdate(payload, 142).then(res => {
-      console.log('res: ', res);
-      resetItem()
-    })
-  }
-}
-function deletePost() {
-  if (false) {
-
-  } else {
-    const  payload = makePayload()
-    console.log('makePayload: ', payload)
-    Post.postDelete(142).then(res => {
-      console.log('res: ', res);
-    })
-  }
+  const payload = makePayload()
+  console.log('makePayload: ', payload)
+  Post.postUpdate(payload, route.params.id).then(res => {
+    console.log('res: ', res);
+    resetItem()
+  })
 }
 </script>
 <style lang="scss" scoped>

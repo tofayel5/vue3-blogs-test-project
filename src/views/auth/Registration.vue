@@ -1,7 +1,7 @@
 <template>
   <div class="form auth-boxed">
     <div class="form-container outer">
-      {{ item }}
+<!--      {{ item }}-->
       <div class="form-form">
         <div class="form-form-wrap">
           <div class="form-container">
@@ -112,14 +112,18 @@
 <script setup>
 import Auth from '@/api/Auth'
 import { reactive } from "vue"
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
-
+// data section
 const item = reactive({
   name: '',
   email: '',
   password: '',
   password_confirmation: ''
 });
+
+// function section
 function resetItem() {
   item.name = ''
   item.email = ''
@@ -127,16 +131,14 @@ function resetItem() {
   item.password_confirmation = ''
 }
 function createUser() {
-  if (false) {
-
-  } else {
-    Auth.register(item).then(res => {
-      console.log('res: ', res);
-      resetItem()
-    })
-  }
+  Auth.register(item).then(res => {
+    console.log('res: ', res);
+    resetItem()
+    router.push({ name: 'Login'})
+  })
 }
 </script>
+
 <style lang="scss" scoped>
 @import "@/assets/scss/pages/auth.scss";
 </style>

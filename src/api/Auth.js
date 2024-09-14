@@ -31,7 +31,7 @@ export default {
     },
     logout() {
         return request({
-            url: '/auth/logout',
+            url: '/logout',
             method: 'post'
         })
     }
