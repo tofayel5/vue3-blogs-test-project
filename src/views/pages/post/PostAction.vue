@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="row mt-2">
-<!--      {{ item }}-->
+<!--      {{ isEditMode }}-->
       <div class="col-lg-12 col-12">
         <div class="card mb-4">
           <div class="card-header">
-            New Product
+            {{ isEditMode ? "Edit" : "New"}} Post
           </div>
           <div class="card-body">
             <form>
@@ -64,6 +64,8 @@ const addTag = (newTag) => {
 // computed property section
 const tagList = computed(() => store.getters.getTags)
 console.log('tagList: ', tagList)
+
+const isEditMode = computed(() => route.params && route.params.id)
 
 // hooks section
 onMounted(() => {

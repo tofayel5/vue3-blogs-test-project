@@ -1,22 +1,29 @@
 <template>
   <!--  BEGIN NAVBAR  -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <a class="navbar-brand"  to="/">Blog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item">
-            <router-link to="/">Dashboard</router-link>
+            <router-link class="nav-link" to="/">Home</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/tags">Tags</router-link>
+            <router-link class="nav-link" to="/tags">Tags</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/posts">Posts</router-link>
+            <router-link class="nav-link" to="/posts">Posts</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/new-post">New Post</router-link>
+            <router-link class="nav-link" to="/new-post">New Post</router-link>
           </li>
-          <li class="float-end"><a class="nav-item" @click="logout()">Logout</a></li>
+          <li class="nav-item">
+            <a class="nav-link" @click="logout">Logout</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -44,8 +51,24 @@ function logout() {
 </script>
 
 <style lang="scss" scoped>
-li a {
+.navbar-brand{
   text-decoration: none;
   padding: 5px;
+  font-size: 1.2rem;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+li a, a {
+  text-decoration: none;
+  padding: 5px;
+  color: rgb(84, 84, 84);
+  font-weight: bold;
+  cursor: pointer;
+}
+li a:hover {
+  color: rgb(0, 0, 0);
+
 }
 </style>

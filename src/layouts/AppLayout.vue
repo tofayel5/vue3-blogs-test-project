@@ -7,13 +7,13 @@ const route = useRoute()
 </script>
 
 <template>
-  <div>
+  <div class="app-layout">
     <!--  BEGIN NAVBAR  -->
     <Header></Header>
     <!--  END NAVBAR  -->
 
     <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-container" id="container">
+    <div class="main-container mt-10" id="container">
       <!--  BEGIN SIDEBAR  -->
       <!--  @TODO-->
 <!--      <Sidebar></Sidebar>-->
@@ -32,3 +32,8 @@ const route = useRoute()
     </div>
   </div>
 </template>
+<style lang="scss" scoped>
+.mt-10{
+  margin-top: 5.5em !important;
+}
+</style>
